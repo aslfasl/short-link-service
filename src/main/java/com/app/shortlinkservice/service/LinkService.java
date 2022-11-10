@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class LinkService {
@@ -18,13 +20,13 @@ public class LinkService {
     }
 
 
-
+    // TODO: 10.11.2022  @Value
     public String createShortLink(String longUrl) {
         String shortUrl = generateShortLink(5);
-        if (checkUrlIfExists(shortUrl)) {
-            // TODO: 09.11.2022
+        while (linkRepo.existsById(shortUrl)) {
+            shortUrl = generateShortLink(5);
         }
-
+        linkRepo.save(new ShortLink(shortUrl, longUrl, LocalDateTime.now(), LocalDateTime.now()));
         return shortUrl;
     }
 
