@@ -5,6 +5,7 @@ import com.app.shortlinkservice.repository.LinkRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class LinkService {
 
 
     // TODO: 10.11.2022  @Value
+    @Transactional
     public String createShortLink(String longUrl) {
         String shortUrl = generateShortLink(5);
         while (linkRepo.existsById(shortUrl)) {
