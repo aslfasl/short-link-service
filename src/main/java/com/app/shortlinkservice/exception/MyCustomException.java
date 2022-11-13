@@ -1,5 +1,15 @@
 package com.app.shortlinkservice.exception;
 
+import lombok.Getter;
+
+
+@Getter
 public class MyCustomException extends RuntimeException {
-    // TODO: 11.11.2022 ExceptionHandler and more specific exceptions
+
+    private final CustomErrorType errorType;
+
+    public MyCustomException(String message, CustomErrorType errorType) {
+        super(message);
+        this.errorType = errorType;
+    }
 }

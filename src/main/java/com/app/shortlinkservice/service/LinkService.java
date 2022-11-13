@@ -1,16 +1,15 @@
 package com.app.shortlinkservice.service;
 
 import com.app.shortlinkservice.entity.ShortLink;
+import com.app.shortlinkservice.exception.CustomErrorType;
 import com.app.shortlinkservice.exception.MyCustomException;
 import com.app.shortlinkservice.repository.LinkRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +19,7 @@ public class LinkService {
 
     @Transactional
     public ShortLink createShortLink(String longUrl) {
-        if (linkRepo.existsByLongValue(longUrl)){
+        if (linkRepo.existsByLongValue(longUrl)) {
             return linkRepo.findByLongValue(longUrl);
         }
         String shortUrl = generateShortLink(5); // TODO: 11.11.2022 @Value
@@ -37,7 +36,9 @@ public class LinkService {
     }
 
     public String getOriginalUrlByShortUrl(String shortUrl) {
-        ShortLink shortLink = linkRepo.findById(shortUrl).orElseThrow(() -> new MyCustomException()); // TODO: 11.11.2022 test exception scenario
+        ShortLink shortLink = linkRepo.findById(shortUrl)
+                .orElseThrow(() ->
+                        new MyCustomException("There is no original link matching this url", CustomErrorType.NOT_FOUND));
         return shortLink.getLongValue();
     }
 }
