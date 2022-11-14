@@ -29,11 +29,13 @@ class LinkServiceTest {
     @Test
     void shouldReturnExistingObjectWhenGenerateCall() {
         String longValue = "testLongValue";
-        ShortLink shortLink = new ShortLink("12345",
-                longValue,
-                LocalDateTime.now().minusDays(4).withNano(0),
-                LocalDateTime.now().minusDays(2).withNano(0)); // TODO: 11.11.2022 differences in nano
+        ShortLink shortLink = new ShortLink(); // TODO: 11.11.2022 differences in nano
+        shortLink.setShortValue("12345");
+        shortLink.setLongValue(longValue);
+        shortLink.setCreationTime(LocalDateTime.now().minusDays(4).withNano(0));
+        shortLink.setLastCallTime(LocalDateTime.now().minusDays(2).withNano(0));
         ShortLink savedLink = linkRepo.save(shortLink);
+
 
         ShortLink generatedShortLink = linkService.createShortLink(longValue);
 
@@ -57,7 +59,10 @@ class LinkServiceTest {
     void shouldReturnLongUrlByShortUrl() {
         String shortUrl = "xPJRr";
         String longUrl = "asdf;lkjqwerup";
-        linkRepo.save(new ShortLink(shortUrl, longUrl, null, null));
+        ShortLink shortLink = new ShortLink();
+        shortLink.setShortValue(shortUrl);
+        shortLink.setLongValue(longUrl);
+        linkRepo.save(shortLink);
 
         String originalUrlByShortUrl = linkService.getOriginalUrlByShortUrl(shortUrl);
 

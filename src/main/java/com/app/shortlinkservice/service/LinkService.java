@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,18 @@ public class LinkService {
 
     @Transactional
     public ShortLink createShortLink(String longUrl) {
-        if (linkRepo.existsByLongValue(longUrl)) {
-            return linkRepo.findByLongValue(longUrl);
+        Optional<ShortLink> shortLinkOptional = linkRepo.findByLongValue(longUrl);
+        if (shortLinkOptional.isPresent()) {
+            return shortLinkOptional.get();
         }
         String shortUrl = generateShortLink(5); // TODO: 11.11.2022 @Value
-        return linkRepo.save(new ShortLink(shortUrl, longUrl, LocalDateTime.now(), LocalDateTime.now()));
+        ShortLink shortLink = new ShortLink();
+        shortLink.setShortValue(shortUrl);
+        shortLink.setLongValue(longUrl);
+        shortLink.setCreationTime(LocalDateTime.now());
+        shortLink.setLastCallTime(LocalDateTime.now());
+
+        return linkRepo.save(shortLink);
 
     }
 

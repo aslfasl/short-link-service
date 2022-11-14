@@ -40,7 +40,12 @@ class AppControllerTest {
     void getOriginalUrl() throws Exception {
         String shortLink = "1234";
         String longValue = "zzzzzzzzz";
-        linkRepo.save(new ShortLink(shortLink, longValue, LocalDateTime.now(), LocalDateTime.now()));
+        ShortLink entity = new ShortLink();
+        entity.setShortValue(shortLink);
+        entity.setLongValue(longValue);
+        entity.setCreationTime(LocalDateTime.now());
+        entity.setLastCallTime(LocalDateTime.now());
+        linkRepo.save(entity);
 
         mockMvc.perform(get("/api/get/" + shortLink))
                 .andExpect(status().isOk())

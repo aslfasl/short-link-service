@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface LinkRepo extends JpaRepository<ShortLink, String> {
     Boolean existsByLongValue(String longUrl);
-    ShortLink findByLongValue(String longUrl);
+    Optional<ShortLink> findByLongValue(String longUrl);
 }
