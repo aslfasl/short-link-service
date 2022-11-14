@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ShortLink {
 
     @Id
