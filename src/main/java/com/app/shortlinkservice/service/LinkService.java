@@ -6,6 +6,7 @@ import com.app.shortlinkservice.exception.MyCustomException;
 import com.app.shortlinkservice.repository.LinkRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class LinkService {
 
     private final LinkRepo linkRepo;
+    @Value("${app.variables.randomStringLength}")
+    private int randomStringLength;
 
     @Transactional
     public ShortLink createShortLink(String longUrl) {
@@ -24,7 +27,7 @@ public class LinkService {
         if (shortLinkOptional.isPresent()) {
             return shortLinkOptional.get();
         }
-        String shortUrl = generateShortLink(5); // TODO: 11.11.2022 @Value
+        String shortUrl = generateShortLink(randomStringLength); // TODO: 11.11.2022 @Value
         ShortLink shortLink = new ShortLink();
         shortLink.setShortValue(shortUrl);
         shortLink.setLongValue(longUrl);
