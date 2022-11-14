@@ -1,14 +1,17 @@
 package com.app.shortlinkservice.entity;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class ShortLink {
 
     @Id
