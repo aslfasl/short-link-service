@@ -10,14 +10,12 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
-@NoArgsConstructor
 @ToString
 public class ShortLink {
 
     @Id
     private String shortValue;
     private String longValue;
-    private LocalDateTime creationTime;
+    private LocalDateTime creationTime = LocalDateTime.now();
     private LocalDateTime lastCallTime;
 }

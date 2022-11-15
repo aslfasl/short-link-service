@@ -27,7 +27,7 @@ public class LinkService {
         if (shortLinkOptional.isPresent()) {
             return shortLinkOptional.get();
         }
-        String shortUrl = generateShortLink(randomStringLength); // TODO: 11.11.2022 @Value
+        String shortUrl = generateShortLink(randomStringLength);
         ShortLink shortLink = new ShortLink();
         shortLink.setShortValue(shortUrl);
         shortLink.setLongValue(longUrl);
