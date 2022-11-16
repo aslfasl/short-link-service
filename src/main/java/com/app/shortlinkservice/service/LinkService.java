@@ -31,8 +31,8 @@ public class LinkService {
         ShortLink shortLink = new ShortLink();
         shortLink.setShortValue(shortUrl);
         shortLink.setLongValue(longUrl);
-        shortLink.setCreationTime(LocalDateTime.now());
-        shortLink.setLastCallTime(LocalDateTime.now());
+        shortLink.setCreationTime(LocalDateTime.now().withNano(0));
+        shortLink.setLastCallTime(LocalDateTime.now().withNano(0));
 
         return linkRepo.save(shortLink);
 
@@ -46,10 +46,12 @@ public class LinkService {
         return generatedLink;
     }
 
+    @Transactional
     public String getLongValueByShortValue(String shortUrl) {
         ShortLink shortLink = linkRepo.findByShortValue(shortUrl)
                 .orElseThrow(() ->
                         new MyCustomException("There is no original link matching this url", CustomErrorType.NOT_FOUND));
+        shortLink.setLastCallTime(LocalDateTime.now().withNano(0));
         return shortLink.getLongValue();
     }
 }
