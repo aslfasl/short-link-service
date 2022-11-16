@@ -8,6 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface LinkRepo extends JpaRepository<ShortLink, String> {
-    Boolean existsByLongValue(String longUrl);
-    Optional<ShortLink> findByLongValue(String longUrl);
+    Boolean existsByLongValue(String longValue);
+    Optional<ShortLink> findByLongValue(String longValue);
+
+    Optional<ShortLink> findByShortValue(String shortValue);
+
+    Boolean existsByShortValue(String shortValue);
 }

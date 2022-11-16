@@ -27,7 +27,7 @@ public class LinkService {
         if (shortLinkOptional.isPresent()) {
             return shortLinkOptional.get();
         }
-        String shortUrl = generateShortLink(randomStringLength);
+        String shortUrl = generateShortValue(randomStringLength);
         ShortLink shortLink = new ShortLink();
         shortLink.setShortValue(shortUrl);
         shortLink.setLongValue(longUrl);
@@ -38,16 +38,16 @@ public class LinkService {
 
     }
 
-    public String generateShortLink(int length) {
+    public String generateShortValue(int length) {
         String generatedLink = RandomStringUtils.randomAlphanumeric(length);
-        while (linkRepo.existsById(generatedLink)) {
+        while (linkRepo.existsByShortValue(generatedLink)) {
             generatedLink = RandomStringUtils.randomAlphanumeric(length);
         }
         return generatedLink;
     }
 
-    public String getOriginalUrlByShortUrl(String shortUrl) {
-        ShortLink shortLink = linkRepo.findById(shortUrl)
+    public String getLongValueByShortValue(String shortUrl) {
+        ShortLink shortLink = linkRepo.findByShortValue(shortUrl)
                 .orElseThrow(() ->
                         new MyCustomException("There is no original link matching this url", CustomErrorType.NOT_FOUND));
         return shortLink.getLongValue();

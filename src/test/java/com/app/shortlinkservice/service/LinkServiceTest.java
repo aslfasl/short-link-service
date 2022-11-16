@@ -20,10 +20,10 @@ class LinkServiceTest {
     private LinkService linkService;
 
     @Test
-    void shouldGenerateNewUnoccupiedUrl() {
-        String generatedUrl = linkService.generateShortLink(5);
+    void shouldGenerateNewUnoccupiedShortValue() {
+        String generatedShortValue = linkService.generateShortValue(5);
 
-        assertFalse(linkRepo.existsById(generatedUrl));
+        assertFalse(linkRepo.existsByShortValue(generatedShortValue));
     }
 
     @Test
@@ -56,16 +56,16 @@ class LinkServiceTest {
     }
 
     @Test
-    void shouldReturnLongUrlByShortUrl() {
-        String shortUrl = "xPJRr";
-        String longUrl = "asdf;lkjqwerup";
+    void shouldReturnLongValueByShortValue() {
+        String shortValue = "xPJRr";
+        String longValue = "asdf;lkjqwerup";
         ShortLink shortLink = new ShortLink();
-        shortLink.setShortValue(shortUrl);
-        shortLink.setLongValue(longUrl);
+        shortLink.setShortValue(shortValue);
+        shortLink.setLongValue(longValue);
         linkRepo.save(shortLink);
 
-        String originalUrlByShortUrl = linkService.getOriginalUrlByShortUrl(shortUrl);
+        String originalLongValue = linkService.getLongValueByShortValue(shortValue);
 
-        assertEquals(longUrl, originalUrlByShortUrl);
+        assertEquals(longValue, originalLongValue);
     }
 }
