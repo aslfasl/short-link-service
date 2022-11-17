@@ -5,12 +5,14 @@ import com.app.shortlinkservice.exception.CustomErrorType;
 import com.app.shortlinkservice.exception.MyCustomException;
 import com.app.shortlinkservice.repository.LinkRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -67,5 +69,11 @@ public class LinkService {
                 linkRepo.delete(shortLink);
             }
         }
+    }
+
+    @SneakyThrows
+    @PostConstruct
+    public void init() {
+        checkAndDeleteOldLinks();
     }
 }
