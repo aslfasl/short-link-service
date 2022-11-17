@@ -68,4 +68,18 @@ class LinkServiceTest {
 
         assertEquals(longValue, originalLongValue);
     }
+
+    @Test
+    void shouldDeleteOldLinks() {
+        ShortLink shortLink1 = new ShortLink();
+        shortLink1.setShortValue("s");
+        shortLink1.setLongValue("asdf");
+        shortLink1.setCreationTime(LocalDateTime.now().minusDays(60));
+        shortLink1.setLastCallTime(LocalDateTime.now().minusDays(40));
+        ShortLink savedLink = linkRepo.save(shortLink1);
+
+        linkService.checkForOldLinks();
+
+        assertFalse(linkRepo.existsById(savedLink.getId()));
+    }
 }

@@ -62,7 +62,7 @@ public class LinkService {
     public void checkForOldLinks() {
         LocalDate today = LocalDate.now();
         for (ShortLink shortLink: linkRepo.findAll()) {
-            long days = ChronoUnit.DAYS.between(shortLink.getLastCallTime(), today);
+            long days = ChronoUnit.DAYS.between(shortLink.getLastCallTime().toLocalDate(), today);
             if (days > 30) {
                 linkRepo.delete(shortLink);
             }

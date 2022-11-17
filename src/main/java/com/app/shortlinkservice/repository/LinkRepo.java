@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface LinkRepo extends JpaRepository<ShortLink, String> {
+public interface LinkRepo extends JpaRepository<ShortLink, Long> {
     Boolean existsByLongValue(String longValue);
     Optional<ShortLink> findByLongValue(String longValue);
 
