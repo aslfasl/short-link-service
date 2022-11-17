@@ -78,7 +78,7 @@ class LinkServiceTest {
         shortLink1.setLastCallTime(LocalDateTime.now().minusDays(40));
         ShortLink savedLink = linkRepo.save(shortLink1);
 
-        linkService.checkForOldLinks();
+        linkService.checkAndDeleteOldLinks();
 
         assertFalse(linkRepo.existsById(savedLink.getId()));
     }

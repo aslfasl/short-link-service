@@ -59,7 +59,7 @@ public class LinkService {
     }
 
     @Scheduled(cron = "0 0 6 * * *")
-    public void checkForOldLinks() {
+    public void checkAndDeleteOldLinks() {
         LocalDate today = LocalDate.now();
         for (ShortLink shortLink: linkRepo.findAll()) {
             long days = ChronoUnit.DAYS.between(shortLink.getLastCallTime().toLocalDate(), today);
