@@ -7,10 +7,13 @@ import com.app.shortlinkservice.repository.LinkRepo;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
@@ -53,5 +56,16 @@ public class LinkService {
                         new MyCustomException("There is no original link matching this url", CustomErrorType.NOT_FOUND));
         shortLink.setLastCallTime(LocalDateTime.now().withNano(0));
         return shortLink.getLongValue();
+    }
+
+    @Scheduled(cron = "0 0 6 * * *")
+    public void checkForOldLinks() {
+        LocalDate today = LocalDate.now();
+        for (ShortLink shortLink: linkRepo.findAll()) {
+            long days = ChronoUnit.DAYS.between(shortLink.getLastCallTime(), today);
+            if (days > 30) {
+                linkRepo.delete(shortLink);
+            }
+        }
     }
 }
