@@ -2,7 +2,6 @@ package com.app.shortlinkservice.controller;
 
 import com.app.shortlinkservice.entity.ShortLink;
 import com.app.shortlinkservice.repository.LinkRepo;
-import com.app.shortlinkservice.service.LinkService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
