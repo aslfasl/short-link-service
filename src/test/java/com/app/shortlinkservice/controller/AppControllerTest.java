@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,8 +26,6 @@ class AppControllerTest {
     @MockBean
     private LinkService mockLinkService;
 
-//    @Autowired
-//    private LinkRepo linkRepo;
 
     @Test
     void createShortLink() throws Exception {
