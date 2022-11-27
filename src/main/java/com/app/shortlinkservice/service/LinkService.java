@@ -60,7 +60,7 @@ public class LinkService {
         return shortLink.getLongValue();
     }
 
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "${app.variables.timePeriodForCleaning}", zone = "Europe/Moscow")
     public void checkAndDeleteOldLinks() {
         LocalDate today = LocalDate.now();
         for (ShortLink shortLink: linkRepo.findAll()) {

@@ -11,3 +11,4 @@ spring:
 app:
   variables:
     randomStringLength: 5
+    timePeriodForCleaning: "0 1 1 * * ?"
