@@ -11,7 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api")
+@RequestMapping("short-link-service/links")
 public class AppController {
 
     private final LinkService service;
