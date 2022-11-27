@@ -1,7 +1,6 @@
 package com.app.shortlinkservice.controller;
 
 import com.app.shortlinkservice.entity.ShortLink;
-import com.app.shortlinkservice.repository.LinkRepo;
 import com.app.shortlinkservice.service.LinkService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
