@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("short-link-service/links")
@@ -17,9 +15,9 @@ public class AppController {
     private final LinkService service;
 
     @PostMapping("/create")
-    public ResponseEntity<ShortLink> createShortLink(@RequestParam(name = "url") String url) {
+    public ResponseEntity<ShortLink> createShortLink(@RequestBody String url) {
         ShortLink shortLink = service.createShortLink(url);
-        return ResponseEntity.created(URI.create("api/create")).body(shortLink);
+        return ResponseEntity.ok().body(shortLink);
     }
 
     @GetMapping("/get/{shortValue}")
