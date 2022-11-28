@@ -12,7 +12,7 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("short-link-service/links")
+@RequestMapping("links")
 public class AppController {
 
     private final LinkService service;

@@ -25,7 +25,6 @@ class AppControllerTest {
     @MockBean
     private LinkService mockLinkService;
 
-
     @Test
     void createShortLink() throws Exception {
         String longValue = "testingMethodWithThisString";
@@ -36,7 +35,7 @@ class AppControllerTest {
         when(mockLinkService.createShortLink(longValue)).thenReturn(shortLink);
 
 
-        mockMvc.perform((post("/short-link-service/links/create"))
+        mockMvc.perform((post("/links/create"))
                         .content(longValue))
                 .andExpect(status().isCreated())
                 .andDo(print())
@@ -50,7 +49,7 @@ class AppControllerTest {
         String longValue = "zzzzzzzzz";
         when(mockLinkService.getLongValueByShortValue(shortValue)).thenReturn(longValue);
 
-        mockMvc.perform(get("/short-link-service/links/get/" + shortValue))
+        mockMvc.perform(get("/links/get/" + shortValue))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$", equalTo(longValue)));
