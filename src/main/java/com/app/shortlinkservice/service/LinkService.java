@@ -36,8 +36,8 @@ public class LinkService {
         ShortLink shortLink = new ShortLink();
         shortLink.setShortValue(shortUrl);
         shortLink.setLongValue(longUrl);
-        shortLink.setCreationTime(LocalDateTime.now().withNano(0));
-        shortLink.setLastCallTime(LocalDateTime.now().withNano(0));
+        shortLink.setCreationTime(LocalDateTime.now().withSecond(0).withNano(0));
+        shortLink.setLastCallTime(LocalDateTime.now().withSecond(0).withNano(0));
 
         return linkRepo.save(shortLink);
 
