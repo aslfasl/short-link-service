@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
@@ -62,13 +60,7 @@ public class LinkService {
 
     @Scheduled(cron = "${app.variables.timePeriodForCleaning}", zone = "Europe/Moscow")
     public void checkAndDeleteOldLinks() {
-        LocalDate today = LocalDate.now();
-        for (ShortLink shortLink: linkRepo.findAll()) {
-            long days = ChronoUnit.DAYS.between(shortLink.getLastCallTime().toLocalDate(), today);
-            if (days > 30) {
-                linkRepo.delete(shortLink);
-            }
-        }
+        linkRepo.deleteAllExpiredLinks();
     }
 
     @SneakyThrows
